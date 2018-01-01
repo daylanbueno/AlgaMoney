@@ -3,10 +3,8 @@ package com.example.algamoney.api.resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,7 +46,7 @@ public class PessoaResource {
 
 	@GetMapping("/find/{codigo}")
 	public ResponseEntity<Pessoa> buscarPessoaPorId(@PathVariable Long codigo){
-		Pessoa pRetornada= pessoaRepository.findOne(codigo);
+		Pessoa pRetornada = pessoaService.findPessoaByCodigo(codigo);
 		return pRetornada !=null ? ResponseEntity.ok(pRetornada) : ResponseEntity.notFound().build(); 
 	}
 	
@@ -64,6 +62,12 @@ public class PessoaResource {
 	public ResponseEntity<Pessoa> atualizarPessoa(@PathVariable Long codigo, @RequestBody Pessoa pessoa){
 		Pessoa pessoaAlterada = pessoaService.atualizar(codigo, pessoa);
 		return ResponseEntity.ok(pessoaAlterada);
+	}
+	
+	@PostMapping("/atualizaStatus/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)// deu tudo certo mais não tenho nada pra te mostrar.
+	public void atualizaStatus(@PathVariable Long codigo, @RequestBody Boolean ativo) {
+		pessoaService.atualizaStatus(codigo, ativo);
 	}
 	
 }

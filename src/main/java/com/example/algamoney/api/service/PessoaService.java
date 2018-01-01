@@ -23,4 +23,17 @@ public class PessoaService {
 		pessoaRepository.save(pessoaCadastrada);
 		return pessoaCadastrada;
 	}
+	
+	public Pessoa findPessoaByCodigo(Long codigo) {
+		return pessoaRepository.findOne(codigo);
+	}
+	
+	public void atualizaStatus(Long codigo, Boolean ativo) {
+		Pessoa pessoaRetornada = findPessoaByCodigo(codigo);
+		if(pessoaRetornada == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		pessoaRetornada.setAtivo(ativo);
+		pessoaRepository.save(pessoaRetornada);
+	}
 }
