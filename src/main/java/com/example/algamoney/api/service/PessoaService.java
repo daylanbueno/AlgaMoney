@@ -1,5 +1,7 @@
 package com.example.algamoney.api.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.algamoney.api.model.Pessoa;
 import com.example.algamoney.api.ropository.PessoaRepository;
+
 
 @Service
 public class PessoaService {
@@ -36,4 +39,18 @@ public class PessoaService {
 		pessoaRetornada.setAtivo(ativo);
 		pessoaRepository.save(pessoaRetornada);
 	}
+	
+	public void deletar(Long codigo) {
+		pessoaRepository.delete(codigo);
+	}
+	
+	public Pessoa salvar(Pessoa pessoa) {
+		return pessoaRepository.save(pessoa);
+	}
+	
+	public List<Pessoa> listaPessoa(){
+		return pessoaRepository.findAll();
+	}
+	
+	
 }

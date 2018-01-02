@@ -37,11 +37,6 @@ public class CategoriaResource {
 	public List<Categoria> listar(){
 		return categoriaRepository.findAll();
 	}
-
-	@GetMapping("/outro")
-	public String outro() {
-		return "OK";
-	}
 	
 	/**
 	 * 
