@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.algamoney.api.event.RecursoCriadoEvent;
 import com.example.algamoney.api.model.Categoria;
-import com.example.algamoney.api.ropository.CategoriaRepository;
+import com.example.algamoney.api.repository.CategoriaRepository;
 
 
 @RestController

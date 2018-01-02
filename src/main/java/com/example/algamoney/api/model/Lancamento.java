@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Lacamento {
+public class Lancamento {
 
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
@@ -131,7 +131,7 @@ public class Lacamento {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Lacamento other = (Lacamento) obj;
+		Lancamento other = (Lancamento) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
