@@ -58,6 +58,19 @@
 			<artifactId>flyway-core</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- Dependencia do hibernate 8  para funcionar o java 8-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-java8</artifactId>
+		</dependency>
+		
+		<!-- Dependencia do hibernate  para funcionar a conversão da data para json.-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+		
 
 	</dependencies>
 
