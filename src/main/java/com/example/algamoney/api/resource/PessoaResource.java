@@ -33,8 +33,6 @@ public class PessoaResource {
 
 	@Autowired
 	private ApplicationEventPublisher publicadorDeEvento;
-		
-	@PostMapping("/salvar")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Pessoa> salvarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
 		 Pessoa pessoaSalva = 	pessoaService.salvar(pessoa);
