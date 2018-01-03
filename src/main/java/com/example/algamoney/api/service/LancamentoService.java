@@ -14,6 +14,9 @@ public class LancamentoService {
 	@Autowired
 	private lancamentoRepository lancamentoRepository; 
 
+	public Lancamento salvar(Lancamento lancamento) {
+		return lancamentoRepository.save(lancamento);
+	}
 
 	public List<Lancamento> listar(){
 		return lancamentoRepository.findAll();

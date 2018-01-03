@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
 import com.example.algamoney.api.util.Error;
 
 
@@ -49,6 +52,7 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex,erros,headers, HttpStatus.BAD_REQUEST, request);
 	}
 	
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -65,6 +69,18 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 		List<Error> erros = Arrays.asList(new Error(msgDesenvolvedor, msgUsuario));
 		return handleExceptionInternal(ex,erros,new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
+	
+	
+	@ExceptionHandler({DataIntegrityViolationException.class}) // pegando esse tipo de exception
+	//@ResponseStatus(HttpStatus.NOT_FOUND) // 	NOT_FOUND: vc ta tendando acessa um recuso que não existe, erro do lado do cliente.
+	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex,WebRequest request) {
+		String mensagemUsuario = messageSorce.getMessage("operacao-nao-permitida", null, LocaleContextHolder.getLocale()); 
+		String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex); 
+		List<Error> erros = Arrays.asList(new Error(mensagemUsuario, mensagemDesenvolvedor)); 
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request); 
+
+	}
+	
 	
 	private List<Error> listarErros(BindingResult bindingResult){
 		List<Error> erros =  new ArrayList<>();
