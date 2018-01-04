@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import com.example.algamoney.api.model.Lancamento;
 import com.example.algamoney.api.model.Pessoa;
 import com.example.algamoney.api.repository.PessoaRepository;
-import com.example.algamoney.api.repository.lancamentoRepository;
+import com.example.algamoney.api.repository.LancamentoRepository;
 import com.example.algamoney.api.service.exception.PessoaInativaOuNaoExiste;
 
 @Service
 public class LancamentoService {
 
 	@Autowired
-	private lancamentoRepository lancamentoRepository; 
+	private LancamentoRepository lancamentoRepository; 
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -30,7 +29,7 @@ import com.example.algamoney.api.util.Error;
 
 @RestController
 @RequestMapping("/lancamento")
-public class lancamentoResource {
+public class LancamentoResource {
 
 	@Autowired
 	private LancamentoService lancamentoService;
