@@ -12,6 +12,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.algamoney.api.event.RecursoCriadoEvent;
 import com.example.algamoney.api.model.Lancamento;
+import com.example.algamoney.api.repository.filter.LancamentoFilter;
 import com.example.algamoney.api.service.LancamentoService;
 import com.example.algamoney.api.service.exception.PessoaInativaOuNaoExiste;
 import com.example.algamoney.api.util.Error;
@@ -67,4 +69,14 @@ public class LancamentoResource {
 		return ResponseEntity.badRequest().body(erros);
 	}
 	
+	@GetMapping("/pesquisar")
+	public  List<Lancamento> pesquisarPorFitro(LancamentoFilter lancamentoFilter ){
+		return lancamentoService.pesquisar(lancamentoFilter);
+	}
+	
+	@DeleteMapping("/apagar/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)// deu tudo certo mais eu não tenho nada para te mostrar.
+	public void deletar(@PathVariable Long codigo) {
+		lancamentoService.remover(codigo);
+	}
 }

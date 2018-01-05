@@ -64,6 +64,13 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-java8</artifactId>
 		</dependency>
+	
+		<!-- Dependencia do hibernate jpamodelgen-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency>
+		
 		
 		<!-- Dependencia do hibernate  para funcionar a conversão da data para json.-->
 		<dependency>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.algamoney.api.model.Lancamento;
 import com.example.algamoney.api.model.Pessoa;
 import com.example.algamoney.api.repository.PessoaRepository;
+import com.example.algamoney.api.repository.filter.LancamentoFilter;
 import com.example.algamoney.api.repository.LancamentoRepository;
 import com.example.algamoney.api.service.exception.PessoaInativaOuNaoExiste;
 
@@ -35,5 +36,14 @@ public class LancamentoService {
 	public Lancamento buscarPorCodigo(Long codigo) {
 		return lancamentoRepository.findOne(codigo);
 	}
+
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){
+		return lancamentoRepository.filtrar(lancamentoFilter);
+	}
+	
+	public void remover(Long codigo) {
+		lancamentoRepository.delete(codigo);
+	}
+	
 	
 }
