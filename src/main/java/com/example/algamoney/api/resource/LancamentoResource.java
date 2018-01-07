@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,10 +71,16 @@ public class LancamentoResource {
 		return ResponseEntity.badRequest().body(erros);
 	}
 	
+//	@GetMapping("/pesquisar") // método funciona sem paginação.
+//	public  List<Lancamento> pesquisarPorFitro(LancamentoFilter lancamentoFilter){
+//		return lancamentoService.pesquisar(lancamentoFilter);
+//	}
+	
 	@GetMapping("/pesquisar")
-	public  List<Lancamento> pesquisarPorFitro(LancamentoFilter lancamentoFilter ){
-		return lancamentoService.pesquisar(lancamentoFilter);
+	public  Page<Lancamento> pesquisarPorFitro(LancamentoFilter lancamentoFilter, Pageable pageAble){
+		return lancamentoService.pesquisar(lancamentoFilter,pageAble);
 	}
+	
 	
 	@DeleteMapping("/apagar/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)// deu tudo certo mais eu não tenho nada para te mostrar.

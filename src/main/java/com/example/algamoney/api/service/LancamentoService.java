@@ -3,6 +3,8 @@ package com.example.algamoney.api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.algamoney.api.model.Lancamento;
@@ -37,8 +39,8 @@ public class LancamentoService {
 		return lancamentoRepository.findOne(codigo);
 	}
 
-	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){
-		return lancamentoRepository.filtrar(lancamentoFilter);
+	public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageAble){
+		return lancamentoRepository.filtrar(lancamentoFilter,pageAble);
 	}
 	
 	public void remover(Long codigo) {
