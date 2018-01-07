@@ -26,7 +26,7 @@ import com.example.algamoney.api.event.RecursoCriadoEvent;
 import com.example.algamoney.api.model.Lancamento;
 import com.example.algamoney.api.repository.filter.LancamentoFilter;
 import com.example.algamoney.api.service.LancamentoService;
-import com.example.algamoney.api.service.exception.PessoaInativaOuNaoExiste;
+import com.example.algamoney.api.service.exception.PessoaInativaOuNaoExisteException;
 import com.example.algamoney.api.util.Error;
 
 @RestController
@@ -61,8 +61,8 @@ public class LancamentoResource {
 		return lancamentoRetornado != null ? ResponseEntity.ok(lancamentoRetornado): ResponseEntity.notFound().build();
 	}
 	
-	@ExceptionHandler({PessoaInativaOuNaoExiste.class})
-	public ResponseEntity<Object> handlerPessoaInativaOuNaoExiste(PessoaInativaOuNaoExiste ex){
+	@ExceptionHandler({PessoaInativaOuNaoExisteException.class})
+	public ResponseEntity<Object> handlerPessoaInativaOuNaoExiste(PessoaInativaOuNaoExisteException ex){
 		String mensagemUsuario = messageSorce.getMessage("operacao-nao-permitida", null, LocaleContextHolder.getLocale()); 
 		String mensagemDesenvolvedor = ex.toString();
 		List<Error> erros = Arrays.asList(new Error(mensagemUsuario, mensagemDesenvolvedor)); 

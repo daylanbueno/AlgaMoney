@@ -1,6 +1,6 @@
 package com.example.algamoney.api.service.exception;
 
-public class PessoaInativaOuNaoExiste extends RuntimeException {
+public class PessoaInativaOuNaoExisteException extends RuntimeException {
 
 	/**
 	 * 

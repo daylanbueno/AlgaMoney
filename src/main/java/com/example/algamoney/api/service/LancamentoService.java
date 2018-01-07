@@ -10,7 +10,7 @@ import com.example.algamoney.api.model.Pessoa;
 import com.example.algamoney.api.repository.PessoaRepository;
 import com.example.algamoney.api.repository.filter.LancamentoFilter;
 import com.example.algamoney.api.repository.LancamentoRepository;
-import com.example.algamoney.api.service.exception.PessoaInativaOuNaoExiste;
+import com.example.algamoney.api.service.exception.PessoaInativaOuNaoExisteException;
 
 @Service
 public class LancamentoService {
@@ -24,7 +24,7 @@ public class LancamentoService {
 	public Lancamento salvar(Lancamento lancamento) {
 		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
 		if(pessoa == null || !pessoa.isAtivo()) {
-			throw new PessoaInativaOuNaoExiste();
+			throw new PessoaInativaOuNaoExisteException();
 		}
 		return lancamentoRepository.save(lancamento);
 	}
