@@ -91,10 +91,12 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+	<!-- Segurança vio oathe2  o spring boot nos fornece o versão -->
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

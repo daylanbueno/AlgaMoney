@@ -13,33 +13,32 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAdapter{
 
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	
-	@Autowired 
-	private AuthenticationManager authenticationManager; 
-
-	@Override 
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception { 
- 		clients.inMemory()  // ficar em memoria
- 			.withClient("angular")  // qual nome do cliente
- 			.secret("@ngul@r0")  // usuário
-			.scopes("read", "write") 
- 			.authorizedGrantTypes("password")  
-			.accessTokenValiditySeconds(1800); //quanto tempo esse token vai ficar funcionando.
- 	} 
- 	 
- 	@Override 
- 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception { 
- 		endpoints 
- 			.tokenStore(tokenStore()) // onde o token fica armazenado 
- 			.authenticationManager(authenticationManager); 
- 	} 
- 	 
- 	@Bean 
- 	public TokenStore tokenStore() { 
- 		return new InMemoryTokenStore(); 
- 	} 
+	
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		clients.inMemory()
+		.withClient("angular") // qual nome do cliente
+		.secret("admin") // qual a senha desse cliente?
+		.scopes("read","write") // qual o scopo?
+		.authorizedGrantTypes("password") // qual grant_type 
+		.accessTokenValiditySeconds(1800);
+	}
+	
+	
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		endpoints.tokenStore(tokenStore()) // onde vai ficar guardado o seu token 
+		.authenticationManager(authenticationManager); // validador do token
+	}
 
 
+	@Bean
+	public TokenStore tokenStore() {
+		return new InMemoryTokenStore();
+	}
 }
