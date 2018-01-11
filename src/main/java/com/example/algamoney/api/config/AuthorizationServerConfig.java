@@ -9,7 +9,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -33,12 +34,21 @@ public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAd
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints.tokenStore(tokenStore()) // onde vai ficar guardado o seu token 
+		.accessTokenConverter(accessTokenConverter())
 		.authenticationManager(authenticationManager); // validador do token
 	}
 
 
 	@Bean
+	public JwtAccessTokenConverter accessTokenConverter() {
+		JwtAccessTokenConverter acessTokenConverter  = new JwtAccessTokenConverter();
+		acessTokenConverter.setSigningKey("admin123");
+		return acessTokenConverter;
+	}
+
+
+	@Bean
 	public TokenStore tokenStore() {
-		return new InMemoryTokenStore();
+		return new JwtTokenStore(accessTokenConverter());
 	}
 }

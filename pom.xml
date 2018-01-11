@@ -91,11 +91,19 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-	<!-- Segurança vio oathe2  o spring boot nos fornece o versão -->
+		<!-- Segurança vio oathe2  o spring boot nos fornece o versão -->
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 		</dependency>
+		
+		
+		<!-- Segurança  jwt para token  versão provida pelo spring boot-->
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-jwt</artifactId>
+		</dependency>
+		
 		
 	</dependencies>
 
