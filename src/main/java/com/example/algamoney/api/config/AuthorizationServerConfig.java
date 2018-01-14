@@ -26,8 +26,9 @@ public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAd
 		.withClient("angular") // qual nome do cliente
 		.secret("admin") // qual a senha desse cliente?
 		.scopes("read","write") // qual o scopo?
-		.authorizedGrantTypes("password") // qual grant_type 
-		.accessTokenValiditySeconds(1800);
+		.authorizedGrantTypes("password","refresh_token") // qual grant_type 
+		.refreshTokenValiditySeconds(360*24)
+		.accessTokenValiditySeconds(40);// por quanta tempo o token vai ser valido?
 	}
 	
 	
@@ -35,6 +36,7 @@ public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAd
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints.tokenStore(tokenStore()) // onde vai ficar guardado o seu token 
 		.accessTokenConverter(accessTokenConverter())
+		.reuseRefreshTokens(false)// refresg token não inspirar
 		.authenticationManager(authenticationManager); // validador do token
 	}
 
