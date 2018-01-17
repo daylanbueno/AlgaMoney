@@ -28,7 +28,7 @@ public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAd
 		.scopes("read","write") // qual o scopo?
 		.authorizedGrantTypes("password","refresh_token") // qual grant_type 
 		.refreshTokenValiditySeconds(360*24)
-		.accessTokenValiditySeconds(40);// por quanta tempo o token vai ser valido?
+		.accessTokenValiditySeconds(180);// por quanta tempo o token vai ser valido?
 	}
 	
 	

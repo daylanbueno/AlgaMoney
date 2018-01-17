@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ public class CategoriaResource {
 	private ApplicationEventPublisher publicadorDeEvento;
 	
 	@GetMapping("/listar")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA')") // Para acessar esse método o usuario deverá ter a permisão  ROLE_PESQUISAR_CATEGORIA
 	public List<Categoria> listar(){
 		return categoriaService.listar();
 	}
@@ -47,6 +49,7 @@ public class CategoriaResource {
 	 * @RequestBondy para receber paramentro
 	 */
 	@PostMapping("/salvar")	
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA')")
 	@ResponseStatus(org.springframework.http.HttpStatus.CREATED)
 	public ResponseEntity<Categoria> salvar(@Valid @RequestBody Categoria categoria, HttpServletResponse  response) {
 	    Categoria categoriaSalva = categoriaService.salvar(categoria);
