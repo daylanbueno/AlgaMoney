@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,7 +83,9 @@ public class LancamentoResource {
 	}
 	
 	
+	
 	@DeleteMapping("/apagar/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO')") 
 	@ResponseStatus(HttpStatus.NO_CONTENT)// deu tudo certo mais eu não tenho nada para te mostrar.
 	public void deletar(@PathVariable Long codigo) {
 		lancamentoService.remover(codigo);

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +51,7 @@ public class PessoaResource {
 
 	@DeleteMapping("/remover/{codigo}") // entrega  nessa url. recebendo código como paramentro.
 	@ResponseStatus(HttpStatus.NO_CONTENT) // Deu tudo certo..  mais eu não tenho conteudo para retorna.
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_PESSOA')") 
 	public void remover(@PathVariable Long codigo) {
 		pessoaService.deletar(codigo);
 	}
