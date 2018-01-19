@@ -4,6 +4,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -16,9 +17,14 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import com.example.algamoney.api.config.properties.ServiceProperties;
+
 @ControllerAdvice
 public class RefreshTokenPostProcessor  implements ResponseBodyAdvice<OAuth2AccessToken>{// Sempre que um corpo de responta for ResponseBodyAdvice<OAuth2AccessToken>  vou intecptar essa responsta
 
+	@Autowired
+	private ServiceProperties servProperties;
+	
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 		return returnType.getMethod().getName().equals("postAccessToken");// adicionando filtro  para exceutar OAuth2AccessToken
@@ -46,7 +52,7 @@ public class RefreshTokenPostProcessor  implements ResponseBodyAdvice<OAuth2Acce
 	private void adicionarRefreshTokenNoCookie(String refreshToken, HttpServletResponse resp, HttpServletRequest req) {
 		Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
 		refreshTokenCookie.setHttpOnly(true); // 	 so pode ser acessado em http.
-		refreshTokenCookie.setSecure(false);// dever ser seguro  pode ser acessado somente em https?
+		refreshTokenCookie.setSecure(servProperties.getSeguranca().isEnableHttps());// TODO:dever ser seguro  pode ser acessado somente em https?
 		refreshTokenCookie.setPath(req.getContextPath()+ "/oauth/token"); // para qual caminho ele vai mandar
 														
 		refreshTokenCookie.setMaxAge(259200);// em quanto tempo esse cookie vai expirar

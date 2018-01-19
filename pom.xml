@@ -103,7 +103,13 @@
     		<groupId>org.springframework.security</groupId>
     		<artifactId>spring-security-jwt</artifactId>
 		</dependency>
-		
+
+		<!-- Segurança  para funcionar properties pro  file -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		
 	</dependencies>
 
